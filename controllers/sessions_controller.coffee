@@ -1,4 +1,6 @@
-User = require('../models/user')
+exports.new = (req, res) ->
+  res.render('sessions/login', { user: req.user, message: req.session.messages })
 
-exports.login = (req, res) ->
-  res.render('sessions/login')
+exports.create = (req, res) ->
+  res.redirect('/notes')
+

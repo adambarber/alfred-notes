@@ -5,7 +5,9 @@ block content
   h4 The easiest way to keep track of notes during development
 
   .login-form
-    form
-      input
-      input
+    form( action='/login', method='post' )
+      label Username
+      input( name='username', type='text' )
+      label Password
+      input( name='password', type='password' )
       button Log In

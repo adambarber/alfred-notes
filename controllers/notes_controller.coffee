@@ -27,3 +27,4 @@ exports.create = (req, res) ->
   note.save (err) ->
     handleCreateError(err) if err
     res.json note
+

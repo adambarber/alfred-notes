@@ -9,6 +9,7 @@
     "coffee-script": "~1.6.3",
     "passport-local": "~0.1.6",
     "passport": "~0.1.17",
-    "bcrypt": "~0.7.7"
+    "bcrypt": "~0.7.7",
+    "passport-local-mongoose": "~0.2.4"
   }
 }
