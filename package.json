@@ -3,6 +3,8 @@
   "description": "a simple REST api for making taking notes during software development easy",
   "version": "0.0.1",
   "dependencies": {
-    "express": "3.x"
+    "express": "3.x",
+    "jade": "0.31.0",
+    "mongoose": "*"
   }
 }
