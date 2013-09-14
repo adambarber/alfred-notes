@@ -4,3 +4,6 @@ exports.new = (req, res) ->
 exports.create = (req, res) ->
   res.redirect('/notes')
 
+exports.destroy = (req, res) ->
+  req.logout()
+  res.redirect('/')

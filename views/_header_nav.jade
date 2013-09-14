@@ -3,9 +3,14 @@
     .row
       .cols-md-12
         .navbar-header
-          a.navbar-brand Alfred Notes
-        ul.nav.navbar-nav.navbar-right
-          li
-            a(href='/register') Sign Up
-          li
-            a(href='/login') Log In
+          a.navbar-brand(href='/') Alfred Notes
+        nav.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            if user
+              li
+                a(href='/logout') Log Out
+            else
+              li
+                a(href='/register') Sign Up
+              li
+                a(href='/login') Log In

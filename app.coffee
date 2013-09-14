@@ -37,10 +37,12 @@ registration = require('./controllers/registrations_controller')
 checkAuth = require('./helpers/authentication_helper')
 
 ## Define Routes
-app.get '/', (req, res) -> res.render 'index'
+app.get '/', (req, res) ->
+  res.render 'index', { user: req.user }
 
 app.get '/login', session.new
 app.post '/login', passport.authenticate('local'), session.create
+app.get '/logout', session.destroy
 
 app.get '/register', registration.new
 app.post '/register', registration.create
