@@ -21,6 +21,7 @@ note = require('./controllers/notes_controller')
 app.get '/', (req, res) -> res.render 'index'
 
 app.get '/notes',     note.index
+app.get '/notes/today', note.today
 app.get '/notes/:id', note.show
 app.post '/notes',    note.create
 
