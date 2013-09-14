@@ -10,6 +10,7 @@
     "passport-local": "~0.1.6",
     "passport": "~0.1.17",
     "bcrypt": "~0.7.7",
-    "passport-local-mongoose": "~0.2.4"
+    "passport-local-mongoose": "~0.2.4",
+    "node-uuid": "~1.4.1"
   }
 }

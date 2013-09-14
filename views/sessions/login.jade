@@ -1,13 +1,16 @@
 extends ../layout
-
 block content
-  h1 Log In
-  h4 The easiest way to keep track of notes during development
-
-  .login-form
-    form( action='/login', method='post' )
-      label Username
-      input( name='username', type='text' )
-      label Password
-      input( name='password', type='password' )
-      button Log In
+  .row
+    .cols-md-12
+      h2 Log In
+      h4 The easiest way to keep track of notes during development
+  .row
+    .cols-md-12
+      form( action='/login', method='post' )
+        div.form-group
+          label Username
+          input.form-control(type="text",name="username")
+        div.form-group
+          label Password
+          input.form-control(type="password",name="password")
+        button.btn.btn-primary(type="submit",value="Login") Log In

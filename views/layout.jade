@@ -1,7 +1,11 @@
 !!!5
 html
   head
+    link(rel='stylesheet', type='text/css', href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
     title Alfred Notes
   body
-    .content
-      block content
+    include _header_nav
+    .container( style="margin-top: 60px;" )
+      .row
+        .cols-md-12
+          block content

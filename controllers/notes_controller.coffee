@@ -13,13 +13,11 @@ exports.today = (req, res) ->
   Note.find
     created_at:
       $gte: today.setHours(0,0,0,0)
-  , (err, notes) ->
-    res.json notes
+  , (err, notes) -> res.json notes
 
 exports.show = (req, res) ->
   Note.findById(req.params.id
-  , (error, note) ->
-    res.json(note))
+  , (error, note) -> res.json(note))
 
 exports.create = (req, res) ->
   note = new Note
