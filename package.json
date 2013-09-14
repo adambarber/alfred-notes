@@ -6,6 +6,9 @@
     "express": "3.x",
     "jade": "0.31.0",
     "mongoose": "*",
-    "coffee-script": "~1.6.3"
+    "coffee-script": "~1.6.3",
+    "passport-local": "~0.1.6",
+    "passport": "~0.1.17",
+    "bcrypt": "~0.7.7"
   }
 }

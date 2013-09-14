@@ -16,14 +16,17 @@ app.configure ->
   app.use(express.bodyParser())
 
 ## Load routes
-note = require('./controllers/notes_controller')
+note    = require('./controllers/notes_controller')
+session = require('./controllers/sessions_controller')
 
 app.get '/', (req, res) -> res.render 'index'
+
+app.get '/login', session.login
 
 app.get '/notes',     note.index
 app.get '/notes/today', note.today
 app.get '/notes/:id', note.show
 app.post '/notes',    note.create
 
-app.listen serverPort
-console.log "Server listening on port #{serverPort}..."
+app.listen serverPort, ->
+  console.log "Server listening on port #{serverPort}..."
