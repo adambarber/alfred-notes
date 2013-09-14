@@ -14,11 +14,8 @@ app.configure ->
   app.use(express.logger('dev'))
   app.use(express.bodyParser())
 
-## load models
-Note = require('./models/note')
-
 ## Load routes
-note = require('./routes/notes')
+note = require('./controllers/notes_controller')
 
 app.get '/', (req, res) -> res.render 'index'
 
