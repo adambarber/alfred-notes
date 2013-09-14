@@ -3,9 +3,10 @@ express  = require("express")
 mongoose = require("mongoose")
 app      = express()
 serverPort = process.env.PORT or 3100
+mongoDBUrl = process.env.MONGOHQ_URL or 'mongodb://localhost/alfred_notes_dev'
 
 ## Connect to Mongo
-mongoose.connect('mongodb://localhost/alfred_notes_dev')
+mongoose.connect(mongoDBUrl)
 
 ## Configure App
 app.configure ->
