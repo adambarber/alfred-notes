@@ -6,11 +6,19 @@ serverPort    = process.env.PORT or 3100
 mongoDBUrl    = process.env.MONGOHQ_URL or 'mongodb://localhost/alfred_notes_dev'
 passport      = require('passport')
 LocalStrategy = require('passport-local').Strategy
+BearerStrategy = require('passport-http-bearer').Strategy
 User          = require('./models/user')
 
-passport.use(User.createStrategy())
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
+passport.use(User.createStrategy())
+
+passport.use new BearerStrategy (token, done) ->
+  User.findOne 'token': "#{token}", (err, user) ->
+    return done(err)  if err
+    unless user
+      return done(null, false)
+    done null, user, scope: "all"
 
 ## Connect to Mongo
 mongoose.connect(mongoDBUrl)
@@ -47,10 +55,10 @@ app.get '/logout', session.destroy
 app.get '/register', registration.new
 app.post '/register', registration.create
 
-app.get '/notes', checkAuth, note.index
-app.get '/notes/today', checkAuth, note.today
-app.get '/notes/:id', checkAuth, note.show
-app.post '/notes', checkAuth, note.create
+app.get '/api/notes', passport.authenticate('bearer', { session: false }), note.index
+app.get '/api/notes/today', checkAuth.localAuth, note.today
+app.get '/api/notes/:id', checkAuth.localAuth, note.show
+app.post '/api/notes', checkAuth.localAuth, note.create
 
 ## Start Server
 app.listen serverPort, ->

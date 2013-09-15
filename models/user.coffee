@@ -1,6 +1,5 @@
 mongoose = require('mongoose')
 Schema = mongoose.Schema
-# passport = require('passport')
 passportLocalMongoose = require('passport-local-mongoose')
 uuid = require('node-uuid')
 
