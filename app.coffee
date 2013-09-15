@@ -16,8 +16,7 @@ passport.use(User.createStrategy())
 passport.use new BearerStrategy (token, done) ->
   User.findOne 'token': "#{token}", (err, user) ->
     return done(err)  if err
-    unless user
-      return done(null, false)
+    return done(null, false) unless user
     done null, user, scope: "all"
 
 ## Connect to Mongo
@@ -45,8 +44,7 @@ registration = require('./controllers/registrations_controller')
 checkAuth = require('./helpers/authentication_helper')
 
 ## Define Routes
-app.get '/', (req, res) ->
-  res.render 'index', { user: req.user }
+app.get '/', (req, res) -> res.render 'index', { user: req.user }
 
 app.get '/login', session.new
 app.post '/login', passport.authenticate('local'), session.create
@@ -56,9 +54,9 @@ app.get '/register', registration.new
 app.post '/register', registration.create
 
 app.get '/api/notes', passport.authenticate('bearer', { session: false }), note.index
-app.get '/api/notes/today', checkAuth.localAuth, note.today
-app.get '/api/notes/:id', checkAuth.localAuth, note.show
-app.post '/api/notes', checkAuth.localAuth, note.create
+app.get '/api/notes/today', passport.authenticate('bearer', { session: false }), note.today
+app.get '/api/notes/:id', passport.authenticate('bearer', { session: false }), note.show
+app.post '/api/notes', passport.authenticate('bearer', { session: false }), note.create
 
 ## Start Server
 app.listen serverPort, ->
