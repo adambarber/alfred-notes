@@ -28,6 +28,7 @@ exports.show = (req, res) ->
 
 exports.create = (req, res) ->
   note = new Note
+    category: req.body.category
     content: req.body.content
     _user: req.user._id
   console.log note
