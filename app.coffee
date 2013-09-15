@@ -5,19 +5,7 @@ app           = express()
 serverPort    = process.env.PORT or 3100
 mongoDBUrl    = process.env.MONGOHQ_URL or 'mongodb://localhost/alfred_notes_dev'
 passport      = require('passport')
-LocalStrategy = require('passport-local').Strategy
-BearerStrategy = require('passport-http-bearer').Strategy
-User          = require('./models/user')
 
-passport.serializeUser(User.serializeUser())
-passport.deserializeUser(User.deserializeUser())
-passport.use(User.createStrategy())
-
-passport.use new BearerStrategy (token, done) ->
-  User.findOne 'token': "#{token}", (err, user) ->
-    return done(err)  if err
-    return done(null, false) unless user
-    done null, user, scope: "all"
 
 ## Connect to Mongo
 mongoose.connect(mongoDBUrl)
@@ -36,16 +24,16 @@ app.configure ->
   app.use(app.router)
 
 ## Load Controllers
-note    = require('./controllers/notes_controller')
-session = require('./controllers/sessions_controller')
+note         = require('./controllers/notes_controller')
+session      = require('./controllers/sessions_controller')
 registration = require('./controllers/registrations_controller')
 
 ## Load Helpers
 checkAuth = require('./helpers/authentication_helper')
+require("./helpers/passport_helper")
 
 ## Define Routes
 app.get '/', (req, res) -> res.render 'index', { user: req.user }
-
 app.get '/login', session.new
 app.post '/login', passport.authenticate('local'), session.create
 app.get '/logout', session.destroy
