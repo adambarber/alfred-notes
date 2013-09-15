@@ -12,7 +12,6 @@ userSchema = new Schema
     type: String
     default: uuid.v1
     unique: true
-  _notes: [{ type: Schema.Types.ObjectId, ref: 'Note' }]
 
 userSchema.plugin(passportLocalMongoose)
 module.exports = mongoose.model('User', userSchema)

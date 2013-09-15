@@ -1,14 +1,13 @@
 Note = require('../models/note')
-User = require('../models/user')
 
 handleCreateError = (err) ->
-  console.log (err)
   res.json 'something went wrong'
 
 exports.index = (req, res) ->
   Note.find(_user: req.user._id).exec (err, notes) ->
-      notes = notes
-      res.json(notes)
+    handleCreateError(err) if err
+    notes = notes
+    res.json(notes)
 
 exports.today = (req, res) ->
   today = new Date()
@@ -17,11 +16,15 @@ exports.today = (req, res) ->
     created_at:
       $gte: today.setHours(0,0,0,0)
   , (err, notes) ->
+    handleCreateError(err) if err
     res.json notes
 
 exports.show = (req, res) ->
   Note.findOne( _user: req.user._id, _id: req.params.id
-  , (error, note) -> res.json(note))
+  , (err, note) ->
+    handleCreateError(err) if err
+    res.json(note)
+  )
 
 exports.create = (req, res) ->
   note = new Note
